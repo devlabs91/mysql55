@@ -7,4 +7,13 @@ mysql55-server \
 
 EXPOSE 3306
 
+ADD create-user.sh /tmp/create-user.sh
+ADD server-config.sh /tmp/server-config.sh
+ADD start-servers.sh /usr/sbin/start-servers
+
+RUN /bin/bash /tmp/create-user.sh && \
+rm /tmp/create-user.sh && \
+/bin/bash /tmp/server-config.sh && \
+rm /tmp/server-config.sh
+
 CMD /usr/bin/env bash start-servers;sleep infinity
